@@ -1,0 +1,17 @@
+2021 January 9
+
+Demonstration of a network communication into a Docker container using netcat.
+
+
+Client container will run
+
+  netcat -l 8080
+
+
+
+Run from a terminal instance to connect to the client container:
+
+  netcat 127.0.0.1 8080
+
+
+
