@@ -6,3 +6,6 @@ line of text to stdout and then terminate.
 Docker will create a logfile when this container is run, see it
 with 'docker logs <CONTAINER ID>'
 
+
+
+
