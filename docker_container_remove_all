@@ -1,0 +1,11 @@
+#!/bin/bash
+
+# give the name of a docker image and all containers of that image will be removed
+
+image=$1
+
+echo "cleaning containers of $image"
+
+docker ps -a | awk '{ print $1,$2 }' | grep $image | awk '{print $1 }' | xargs -I {} docker container rm  {}
+
+echo "done"
