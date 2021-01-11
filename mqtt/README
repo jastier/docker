@@ -1,0 +1,9 @@
+2021 January 9
+
+Create a Docker image with the MQTT broker
+
+Run the broker in a docker container
+
+Test the broker by running mosquitto_sub and mosquitto_pub outside of docker.
+
+
