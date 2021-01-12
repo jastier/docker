@@ -5,5 +5,10 @@
 # use this image
 FROM ubuntu
 
-# do these things
-CMD echo "Hello World!"
+# Create a user so the container does not run the process as root
+RUN groupadd -g 999 appuser && \
+    useradd -r -u 999 -g appuser appuser
+USER appuser
+
+# start here
+ENTRYPOINT echo "Hello World!"
