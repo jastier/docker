@@ -1,30 +1,31 @@
-# First test.  
 
-# copy this image
-FROM ubuntu
+#
+# Scala and sbt Dockerfile
+#
+# https://github.com/hseeberger/scala-sbt
+#
 
-# blame
-MAINTAINER jastier@email.arizona.edu
+# Pull base image
+FROM openjdk:8u181
 
-# applications
-RUN apt-get update
-RUN apt-get install -y mosquitto
-RUN apt-get install -y scala
-RUN apt-get install -y curl
-RUN apt-get install -y unzip
-RUN apt-get install -y zip
-RUN curl -s "https://get.sdkman.io" | bash
-UN sdk install -y sbt
+# Env variables
+ENV SCALA_VERSION 2.11.12
+ENV SBT_VERSION 1.3.5
 
-# SBT install needs sdkman first
-#RUN source ~/.bashrc
+# Install Scala
+## Piping curl directly in tar
+RUN \
+  curl -fsL https://downloads.typesafe.com/scala/$SCALA_VERSION/scala-$SCALA_VERSION.tgz | tar xfz - -C /root/ && \
+  echo >> /root/.bashrc && \
+  echo "export PATH=~/scala-$SCALA_VERSION/bin:$PATH" >> /root/.bashrc
+
+# Install sbt
+RUN \
+  curl -L -o sbt-$SBT_VERSION.deb https://dl.bintray.com/sbt/debian/sbt-$SBT_VERSION.deb && \
+  dpkg -i sbt-$SBT_VERSION.deb && \
+  rm sbt-$SBT_VERSION.deb && \
+  apt-get update && \
+  apt-get install sbt 
 
 
-# socket for the broker (private network bridge goes here)
-EXPOSE 1883
-
-# test of stdout connection to VM
-CMD echo "Hello Mosquitto!"
-
-ENTRYPOINT sbt "runMain org.clulab.asist.DialogAgentTest"
-
+ENTRYPOINT sbt version
