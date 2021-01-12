@@ -1,0 +1,7 @@
+
+Clone the tomcat-text repo into a container with sbt
+
+Currently this is in development so I'm using the dialog_agent_edits branch
+
+
+git clone -b dialog_agent_edits --single-branch https://github.com/clulab/tomcat-text
